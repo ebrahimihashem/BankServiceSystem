@@ -1,11 +1,12 @@
-package com.fanap.bankservicesystem.business.account;
+package com.fanap.bankservicesystem.business.account.impl;
 
+import com.fanap.bankservicesystem.business.account.SavingAccount;
 import com.fanap.bankservicesystem.business.exception.ExceptionMessageCodes;
 import com.fanap.bankservicesystem.business.exception.InsufficientFundsException;
 import com.fanap.bankservicesystem.business.exception.InvalidTransactionException;
 import com.fanap.bankservicesystem.business.util.InputValueUtil;
 
-public final class SavingsAccount extends BankAccount {
+public final class SavingsAccountImpl extends BankAccountImpl implements SavingAccount {
 
     /**
      * interestRate: is assumed as daily interest rate
@@ -13,11 +14,11 @@ public final class SavingsAccount extends BankAccount {
     private final double interestRate;
     private double minimumBalance;
 
-    public SavingsAccount(String accountNumber,
-                          String accountHolderName,
-                          Double balance,
-                          Double interestRate,
-                          Double minimumBalance) {
+    public SavingsAccountImpl(String accountNumber,
+                              String accountHolderName,
+                              Double balance,
+                              Double interestRate,
+                              Double minimumBalance) {
         super(accountNumber, accountHolderName, balance);
         this.interestRate = InputValueUtil.getNonNegativeValue(interestRate);
         this.minimumBalance = minimumBalance;
