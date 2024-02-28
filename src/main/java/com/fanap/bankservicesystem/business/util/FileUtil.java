@@ -27,15 +27,16 @@ public class FileUtil {
 
         //Removing Current Bank Accounts Then Adding Loaded Accounts From The File
         Bank currentBank = BankImpl.getInstance();
-        Set<Map.Entry<String, BankAccount>> currentAccounts = currentBank.listAccounts().entrySet();
-        while (currentAccounts.iterator().hasNext())
-            currentBank.removeAccount(currentAccounts.iterator().next().getKey());
+        if (currentBank.listAccounts() != null && !currentBank.listAccounts().isEmpty()) {
+            Set<Map.Entry<String, BankAccount>> currentAccounts = currentBank.listAccounts().entrySet();
+            while (currentAccounts.iterator().hasNext())
+                currentBank.removeAccount(currentAccounts.iterator().next().getKey());
+        }
         if (loadedBank.listAccounts() != null)
             loadedBank.listAccounts().forEach((k, v) -> currentBank.addAccount(v));
 
         in.close();
         fileIn.close();
     }
-
 
 }
