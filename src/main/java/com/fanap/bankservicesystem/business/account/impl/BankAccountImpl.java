@@ -4,11 +4,9 @@ package com.fanap.bankservicesystem.business.account.impl;
 import com.fanap.bankservicesystem.business.account.BankAccount;
 import com.fanap.bankservicesystem.business.exception.ExceptionMessageCodes;
 import com.fanap.bankservicesystem.business.exception.InsufficientFundsException;
-import com.fanap.bankservicesystem.business.exception.InvalidTransactionException;
 import com.fanap.bankservicesystem.business.util.InputValueUtil;
 
 import java.io.Serializable;
-import java.lang.IllegalArgumentException;
 
 public class BankAccountImpl implements BankAccount, Serializable {
 
@@ -24,6 +22,12 @@ public class BankAccountImpl implements BankAccount, Serializable {
         this.balance = InputValueUtil.getNonNegativeValue(balance);
     }
 
+    protected enum Operation {
+        DEPOSIT,
+        WITHDRAW,
+        GET_BALANCE
+    }
+
     public void deposit(double amount) {
         if (amount < 0)
             throw new IllegalArgumentException(ExceptionMessageCodes.BSS_NEGATIVE_AMOUNT);
@@ -31,7 +35,7 @@ public class BankAccountImpl implements BankAccount, Serializable {
         balance += amount;
     }
 
-    public void withdraw(double amount) throws InsufficientFundsException, InvalidTransactionException {
+    public void withdraw(double amount) {
         if (amount < 0)
             throw new IllegalArgumentException(ExceptionMessageCodes.BSS_NEGATIVE_AMOUNT);
         if (amount > this.balance)
@@ -48,7 +52,7 @@ public class BankAccountImpl implements BankAccount, Serializable {
         this.balance = balance;
     }
 
-    protected double getBalance() {
+    public double getBalance() {
         return balance;
     }
 

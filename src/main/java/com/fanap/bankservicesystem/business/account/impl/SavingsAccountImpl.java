@@ -6,7 +6,7 @@ import com.fanap.bankservicesystem.business.exception.InsufficientFundsException
 import com.fanap.bankservicesystem.business.exception.InvalidTransactionException;
 import com.fanap.bankservicesystem.business.util.InputValueUtil;
 
-public final class SavingsAccountImpl extends BankAccountImpl implements SavingAccount {
+public final class SavingsAccountImpl extends CheckingAccountImpl implements SavingAccount {
 
     /**
      * interestRate: is assumed as daily interest rate
@@ -19,11 +19,12 @@ public final class SavingsAccountImpl extends BankAccountImpl implements SavingA
                               Double balance,
                               Double interestRate,
                               Double minimumBalance) {
-        super(accountNumber, accountHolderName, balance);
+        super(accountNumber, accountHolderName, balance, 0d);
         this.interestRate = InputValueUtil.getNonNegativeValue(interestRate);
         this.minimumBalance = minimumBalance;
     }
 
+    @Override
     public void withdraw(double amount) throws InsufficientFundsException, InvalidTransactionException {
         if (getBalance() - amount >= minimumBalance)
             super.withdraw(amount);
@@ -36,11 +37,4 @@ public final class SavingsAccountImpl extends BankAccountImpl implements SavingA
             super.deposit(averageBalance * numberOfDays * interestRate);
     }
 
-    public double getMinimumBalance() {
-        return minimumBalance;
-    }
-
-    public void setMinimumBalance(double minimumBalance) {
-        this.minimumBalance = minimumBalance;
-    }
 }
