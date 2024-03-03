@@ -6,7 +6,7 @@ import java.io.*;
 
 public class FileUtil {
 
-    public static final String BANK_FILE_NAME = "BankData.ser";
+    public static final String BANK_FILE_NAME = "src\\main\\resources\\BankData.ser";
 
     public static void writeBankDataToTheFile() throws IOException {
         FileOutputStream fileOut = new FileOutputStream(BANK_FILE_NAME);
