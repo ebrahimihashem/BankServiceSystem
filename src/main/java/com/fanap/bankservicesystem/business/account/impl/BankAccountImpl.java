@@ -13,7 +13,7 @@ public class BankAccountImpl implements BankAccount, Serializable {
     protected static final long serialVersionUID = 2L;
     private final String accountNumber;
     private final String accountHolderName;
-    private double balance;
+    protected double balance;
 
     public BankAccountImpl(String accountNumber, String accountHolderName, Double balance) {
         InputValueUtil.checkStringsHaveValue(new String[]{accountNumber, accountHolderName});

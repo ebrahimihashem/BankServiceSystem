@@ -4,7 +4,7 @@ import com.fanap.bankservicesystem.business.account.BankAccount;
 import com.fanap.bankservicesystem.business.account.SavingAccount;
 import com.fanap.bankservicesystem.business.account.impl.BankAccountImpl;
 import com.fanap.bankservicesystem.business.account.impl.CheckingAccountImpl;
-import com.fanap.bankservicesystem.business.account.impl.SavingsAccountImpl;
+import com.fanap.bankservicesystem.business.account.impl.SavingAccountImpl;
 import com.fanap.bankservicesystem.business.exception.InsufficientFundsException;
 import com.fanap.bankservicesystem.business.service.BankImpl;
 import com.fanap.bankservicesystem.business.util.FileUtil;
@@ -34,7 +34,7 @@ public class Week1 {
     }
 
     private static void testSavingAccountAndAddToBank() {
-        SavingAccount savingsAccount = new SavingsAccountImpl(
+        SavingAccount savingsAccount = new SavingAccountImpl(
                 "003", "Sima", 6000d, 0.01, 1000d);
         testAccount(savingsAccount);
         savingsAccount.applyInterest(1000, 100);
@@ -43,9 +43,9 @@ public class Week1 {
 
     private static void testAccount(BankAccount bankAccount) {
         bankAccount.deposit(1000d);
-        printAccountInfo(bankAccount);
+        PrintUtil.printAccountInfo(bankAccount);
         bankAccount.withdraw(1000d);
-        printAccountInfo(bankAccount);
+        PrintUtil.printAccountInfo(bankAccount);
         try {
             bankAccount.withdraw(2000d);
         } catch (InsufficientFundsException e) {
@@ -58,25 +58,13 @@ public class Week1 {
         try {
             FileUtil.writeBankDataToTheFile();
             System.out.println("Current Bank Data:");
-            printBankData();
+            PrintUtil.printBankData();
             System.out.println("Loading Bank Data:");
             FileUtil.readBankDataFromTheFile();
-            printBankData();
+            PrintUtil.printBankData();
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    private static void printAccountInfo(BankAccount bankAccount) {
-        BankAccountImpl bankAccountImpl = (BankAccountImpl) bankAccount;
-        System.out.println("AccountNumber:" + bankAccountImpl.getAccountNumber()
-                + " HolderName:" + bankAccountImpl.getAccountHolderName()
-                + " balance:" + bankAccountImpl.getBalance());
-    }
-
-    private static void printBankData() {
-        System.out.println("Bank Accounts:");
-        if (BankImpl.getInstance().listAccounts() != null)
-            BankImpl.getInstance().listAccounts().forEach((k, v) -> printAccountInfo(v));
-    }
 }

@@ -7,11 +7,11 @@ import com.fanap.bankservicesystem.business.util.InputValueUtil;
 
 public class CheckingAccountImpl extends BankAccountImpl implements BankAccount {
 
-    private final double overDraftLimit;
+    protected final double overDraftLimit;
 
-    private static final double WITHDRAW_FEE = 2000;
-    private static final double GET_BALANCE_FEE = 1000;
-    private static final double DEPOSIT_FEE_RATE = 0.001;
+    protected static final double WITHDRAW_FEE = 2000;
+    protected static final double GET_BALANCE_FEE = 1000;
+    protected static final double DEPOSIT_FEE_RATE = 0.001;
 
     public CheckingAccountImpl(String accountNumber, String accountHolderName, Double balance, Double overDraftLimit) {
         super(accountNumber, accountHolderName, balance);
@@ -47,7 +47,7 @@ public class CheckingAccountImpl extends BankAccountImpl implements BankAccount 
         throw new InsufficientFundsException(ExceptionMessageCodes.BSS_INSUFFICIENT_BALANCE_AND_OVER_DRAFT_LIMIT);
     }
 
-    private void deductFees(Operation operation, Double depositAmount) {
+    protected void deductFees(Operation operation, Double depositAmount) {
         if (Operation.WITHDRAW.equals(operation))
             setBalance(super.getBalance() - WITHDRAW_FEE);
         if (Operation.GET_BALANCE.equals(operation))
