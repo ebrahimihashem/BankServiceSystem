@@ -1,6 +1,6 @@
 package com.fanap.bankservicesystem.business.util;
 
-import com.fanap.bankservicesystem.business.service.BankImpl;
+import com.fanap.bankservicesystem.business.service.impl.BankImpl;
 
 import java.io.*;
 

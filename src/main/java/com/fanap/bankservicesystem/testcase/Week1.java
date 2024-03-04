@@ -6,7 +6,7 @@ import com.fanap.bankservicesystem.business.account.impl.BankAccountImpl;
 import com.fanap.bankservicesystem.business.account.impl.CheckingAccountImpl;
 import com.fanap.bankservicesystem.business.account.impl.SavingAccountImpl;
 import com.fanap.bankservicesystem.business.exception.InsufficientFundsException;
-import com.fanap.bankservicesystem.business.service.BankImpl;
+import com.fanap.bankservicesystem.business.service.impl.BankImpl;
 import com.fanap.bankservicesystem.business.util.FileUtil;
 
 import java.io.IOException;

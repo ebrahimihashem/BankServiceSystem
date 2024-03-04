@@ -2,14 +2,24 @@ package com.fanap.bankservicesystem.testcase;
 
 import com.fanap.bankservicesystem.business.account.BankAccount;
 import com.fanap.bankservicesystem.business.account.SavingAccount;
+import com.fanap.bankservicesystem.business.account.impl.BankAccountImpl;
+import com.fanap.bankservicesystem.business.account.impl.SavingAccountImpl;
 import com.fanap.bankservicesystem.business.account.impl.threadsafe.ThreadSafeCheckingAccountImpl;
 import com.fanap.bankservicesystem.business.account.impl.threadsafe.ThreadSafeSavingAccountImpl;
+import com.fanap.bankservicesystem.business.service.*;
+import com.fanap.bankservicesystem.business.service.impl.BankImpl;
+import com.fanap.bankservicesystem.business.service.impl.BankOperationExecutor;
+import com.fanap.bankservicesystem.business.service.impl.GenericBankImpl;
+
+import java.math.BigDecimal;
 
 public class Week2 {
 
     public static void testCase() {
         testThreadSafeCheckingAccount();
         testThreadSafeSavingAccount();
+        testBankOperationExecutor();
+        testGenericBank();
     }
 
     private static void testThreadSafeCheckingAccount() {
@@ -84,4 +94,28 @@ public class Week2 {
         PrintUtil.printAccountInfo(bankAccount);
     }
 
+    private static void testBankOperationExecutor() {
+        BankImpl.setInstance(null);
+        Bank bank = BankImpl.getInstance();
+        //Add 1000 Accounts to Bank
+        for (int i = 0; i < 10000; i++)
+            bank.addAccount(new SavingAccountImpl(
+                    String.valueOf(i), String.valueOf(i), 2000d, 0.5d, 0d));
+
+        BigDecimal totalBalance = BankOperationExecutor.calculateBankTotalBalance();
+        //Total Balance Should Be 1`000`000
+        System.out.println("Total Balance:" + totalBalance);
+
+        BankOperationExecutor.applyInterestToAllAccounts();
+        totalBalance = BankOperationExecutor.calculateBankTotalBalance();
+        //Total Balance Should Be 500`000
+        System.out.println("Total Balance:" + totalBalance);
+    }
+
+
+    private static void testGenericBank() {
+        GenericBank<BankAccount> genericBank = GenericBankImpl.getInstance();
+        genericBank.addAccount(new BankAccountImpl("001","Ali",5000d));
+        PrintUtil.printGenericBankData();
+    }
 }

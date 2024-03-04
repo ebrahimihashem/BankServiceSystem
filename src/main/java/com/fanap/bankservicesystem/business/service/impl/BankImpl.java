@@ -1,6 +1,7 @@
-package com.fanap.bankservicesystem.business.service;
+package com.fanap.bankservicesystem.business.service.impl;
 
 import com.fanap.bankservicesystem.business.account.BankAccount;
+import com.fanap.bankservicesystem.business.service.Bank;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -23,7 +24,6 @@ public class BankImpl implements Bank, Serializable {
     }
 
     synchronized public static void setInstance(BankImpl newInstance) {
-        if (newInstance != null)
             instance = newInstance;
     }
 
