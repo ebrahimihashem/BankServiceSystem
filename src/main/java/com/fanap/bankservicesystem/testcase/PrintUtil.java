@@ -2,8 +2,8 @@ package com.fanap.bankservicesystem.testcase;
 
 import com.fanap.bankservicesystem.business.account.BankAccount;
 import com.fanap.bankservicesystem.business.account.impl.BankAccountImpl;
+import com.fanap.bankservicesystem.business.service.GenericBank;
 import com.fanap.bankservicesystem.business.service.impl.BankImpl;
-import com.fanap.bankservicesystem.business.service.impl.GenericBankImpl;
 
 public class PrintUtil {
 
@@ -20,10 +20,10 @@ public class PrintUtil {
             BankImpl.getInstance().listAccounts().forEach((k, v) -> printAccountInfo(v));
     }
 
-    public static void printGenericBankData() {
+    public static void printGenericBankData(GenericBank<? extends BankAccount> bank) {
         System.out.println("Generic Bank Accounts:");
-        if (GenericBankImpl.getInstance().listAccounts() != null)
-            GenericBankImpl.getInstance().listAccounts().forEach((k, v) -> printAccountInfo(v));
+        if (bank.listAccounts() != null)
+            bank.listAccounts().forEach((k, v) -> printAccountInfo(v));
     }
 
 }

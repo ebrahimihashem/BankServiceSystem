@@ -114,8 +114,8 @@ public class Week2 {
 
 
     private static void testGenericBank() {
-        GenericBank<BankAccount> genericBank = GenericBankImpl.getInstance();
-        genericBank.addAccount(new BankAccountImpl("001","Ali",5000d));
-        PrintUtil.printGenericBankData();
+        GenericBank<BankAccount> genericBank = new GenericBankImpl<>();
+        genericBank.addAccount(new BankAccountImpl("001", "Ali", 5000d));
+        PrintUtil.printGenericBankData(genericBank);
     }
 }

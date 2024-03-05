@@ -10,22 +10,9 @@ import java.util.Map;
 public class GenericBankImpl<T extends BankAccount> implements GenericBank<T>, Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static GenericBankImpl instance;
     private Map<String, T> accountMap;
 
-    private GenericBankImpl() {
-    }
-
-    synchronized public static <T extends BankAccount> GenericBankImpl<T> getInstance() {
-        if (instance == null) {
-            instance = new GenericBankImpl<T>();
-        }
-        return instance;
-    }
-
-    synchronized public static <T extends BankAccount> void setInstance(GenericBankImpl<T> newInstance) {
-        if (newInstance != null)
-            instance = newInstance;
+    public GenericBankImpl() {
     }
 
     @Override
