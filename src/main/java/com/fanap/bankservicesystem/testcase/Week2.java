@@ -18,8 +18,10 @@ public class Week2 {
     public static void testCase() {
         testThreadSafeCheckingAccount();
         testThreadSafeSavingAccount();
-        testBankOperationExecutor();
+        testBankOperationExecutorMultiThreadMethods();
         testGenericBank();
+        testGetSumOfHighValueBalances();
+        testFilterSavingAccountsAndApplyInterest();
     }
 
     private static void testThreadSafeCheckingAccount() {
@@ -94,11 +96,11 @@ public class Week2 {
         PrintUtil.printAccountInfo(bankAccount);
     }
 
-    private static void testBankOperationExecutor() {
+    private static void testBankOperationExecutorMultiThreadMethods() {
         BankImpl.setInstance(null);
         Bank bank = BankImpl.getInstance();
         //Add 1000 Accounts to Bank
-        for (int i = 0; i < 10000; i++)
+        for (int i = 0; i < 1000; i++)
             bank.addAccount(new SavingAccountImpl(
                     String.valueOf(i), String.valueOf(i), 2000d, 0.5d, 0d));
 
@@ -118,4 +120,31 @@ public class Week2 {
         genericBank.addAccount(new BankAccountImpl("001", "Ali", 5000d));
         PrintUtil.printGenericBankData(genericBank);
     }
+
+
+    private static void testGetSumOfHighValueBalances() {
+        BankImpl.setInstance(null);
+        Bank bank = BankImpl.getInstance();
+        //Add 1000 Accounts to Bank
+        for (int i = 0; i < 1000; i++)
+            bank.addAccount(new BankAccountImpl(String.valueOf(i), String.valueOf(i), (double) i));
+
+        System.out.println(BankOperationExecutor.getSumOfHighValueBalances(500d));
+    }
+
+    private static void testFilterSavingAccountsAndApplyInterest() {
+        BankImpl.setInstance(null);
+        Bank bank = BankImpl.getInstance();
+        //Add 10 Basic Accounts to Bank
+        for (int i = 0; i < 10; i++)
+            bank.addAccount(new BankAccountImpl(String.valueOf(i), String.valueOf(i), 500d));
+        //Add 10 Saving Accounts to Bank
+        for (int i = 10; i < 20; i++)
+            bank.addAccount(new SavingAccountImpl(
+                    String.valueOf(i), String.valueOf(i), 2000d, 1d, 0d));
+        BankOperationExecutor.filterSavingAccountsAndApplyInterest();
+        //Only Balance Of AccountNumbers 10 to 19 Are Changed
+        PrintUtil.printBankData();
+    }
+
 }
