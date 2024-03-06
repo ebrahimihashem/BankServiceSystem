@@ -19,9 +19,9 @@ public class Week3 {
         em.getTransaction().begin();
 
         BankAccountEntity bankAccountEntity = new BankAccountEntity();
-        bankAccountEntity.setAccountNumber("1");
-        bankAccountEntity.setAccountHolderName("Ali");
-        bankAccountEntity.setBalance(5000d);
+        bankAccountEntity.setAccountNumber("2");
+        bankAccountEntity.setAccountHolderName("Bahram");
+        bankAccountEntity.setBalance(4000d);
 
         em.persist(bankAccountEntity);
 

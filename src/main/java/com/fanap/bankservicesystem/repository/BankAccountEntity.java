@@ -1,18 +1,21 @@
 package com.fanap.bankservicesystem.repository;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
 public class BankAccountEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private int id;
+    @Column(name = "Account_Number", unique = true, nullable = false)
     private String accountNumber;
+    @Column(name = "Account_Holder_Name", nullable = false)
     private String accountHolderName;
+    @Column(name = "Balanace_Value", nullable = false)
     private Double balance;
 
     public int getId() {
